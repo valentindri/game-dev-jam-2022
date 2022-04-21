@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,15 +60,14 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag != "Bush")
+
+        if (collision.gameObject.tag != "Bush" )
         {
-            Debug.Log("asd"+collision.gameObject.GetComponent<SpriteRenderer>());
+            Debug.Log("Not a bush "+" Collision speed:"+GetComponent<Rigidbody2D>().velocity.magnitude);
+            Debug.Log("Not a bush "+" Collision :"+GetComponent<Rigidbody2D>().velocity);
         }
 
     }
 
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        Debug.Log("Exit"+ collision.gameObject.name);
-    }
+    
 }
