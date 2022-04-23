@@ -51,12 +51,12 @@ public class PlayerController : MonoBehaviour
     {
         bool previousGrounded = isGrounded;
 
-    if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Bush")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Bush")
         {
             isGrounded = true;
         }
-        Debug.Log(previousGrounded);
-        Debug.Log(isGrounded);
+        //Debug.Log(previousGrounded);
+        //Debug.Log(isGrounded);
         if (!previousGrounded && isGrounded)
         {
             float asd = rb2D.velocity.y + fallThresholdVelocity;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log(asd);
 
             float damage = Mathf.Abs(rb2D.velocity.y);
-            Debug.Log("damash"+damage);
+            //Debug.Log("damash"+damage);
             if (rb2D.velocity.y < -fallThresholdVelocity)
             {
                 GetDamage(damage);
@@ -75,25 +75,31 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Vector2 impactVelocity = collision.relativeVelocity;
-        float minimumDamageThreshold = 20f;
-        float collisionDamageScale = 10;
-        // Subtracting a minimum threshold can avoid tiny scratches at negligible speeds.
-        float magnitude = Mathf.Max(0f, impactVelocity.magnitude - minimumDamageThreshold);
-        // Using sqrMagnitude can feel good here,
-        // making light taps less damaging and high-speed strikes devastating.
-
-        float damage = magnitude * collisionDamageScale;
-        //Debug.Log("Impact velocity: " +collision.relativeVelocity);
-        //Debug.Log("Impact magnitude: " +collision.relativeVelocity.magnitude );
-        //Debug.Log("Damage: " + damage);
-
-
-        if (collision.gameObject.tag != "Bush")
+        if (collision.gameObject.tag != "Bush" && collision.gameObject.tag != "Bouncy")
         {
-        //    Debug.Log("Not a bush "+" Collision speed:"+GetComponent<Rigidbody2D>().velocity.magnitude);
-        //    Debug.Log("Not a bush "+" Collision :"+GetComponent<Rigidbody2D>().velocity);
+            //Debug.Log("Not a bush "+" Collision speed:"+GetComponent<Rigidbody2D>().velocity.magnitude);
+            //Debug.Log("Not a bush "+" Collision :"+GetComponent<Rigidbody2D>().velocity);
+
+            Vector2 impactVelocity = collision.relativeVelocity;
+            float minimumDamageThreshold = 20f;
+            float collisionDamageScale = 10;
+
+            // Subtracting a minimum threshold can avoid tiny scratches at negligible speeds.
+            float magnitude = Mathf.Max(0f, impactVelocity.magnitude - minimumDamageThreshold);
+
+            // Using sqrMagnitude can feel good here,
+            // making light taps less damaging and high-speed strikes devastating.
+
+            float damage = magnitude * collisionDamageScale;
+            //Debug.Log("Impact velocity: " +collision.relativeVelocity);
+            //Debug.Log("Impact magnitude: " +collision.relativeVelocity.magnitude );
+            //Debug.Log("Damage: " + damage);
+            
         }
+
+
+
+
 
     }
 
