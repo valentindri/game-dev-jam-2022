@@ -7,19 +7,23 @@ public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rb2D;
 
+    [SerializeField] public Sprite newSprite;
     [SerializeField] public float moveSpeed;
     [SerializeField] public float jumpForce;
     [SerializeField] public float fallThresholdVelocity = 1f;
+    [SerializeField] private float maxYvelocity;
+
     private bool isGrounded;
     private float moveHorizontal;
     private float moveVertical;
-    private float maxYvelocity;
+    private SpriteRenderer spriteRenderer;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();//gameobject references the object the script is attached to (Player)
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         isGrounded = false;
     }
 
@@ -39,7 +43,7 @@ public class PlayerController : MonoBehaviour
             rb2D.AddForce(new Vector2(moveHorizontal * moveSpeed,0f), ForceMode2D.Impulse);
         }
 
-        if(isGrounded && moveVertical > 0.1f)
+        if(isGrounded && moveVertical > 0.1f && moveVertical < maxYvelocity)
         {
             rb2D.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
@@ -100,6 +104,15 @@ public class PlayerController : MonoBehaviour
     void GetDamage(float damage)
     {
         Debug.Log("Received damage!!"+ damage );
+        Debug.Log("SPRITE BEFORE"+gameObject.GetComponent<SpriteRenderer>().sprite);
+        ChangeSprite(newSprite);
+        Debug.Log("AFTER"+gameObject.GetComponent<SpriteRenderer>().sprite);
+
     }
-    
+
+    void ChangeSprite(Sprite newSprite)
+    {
+        spriteRenderer.sprite = newSprite;
+    }
+
 }
