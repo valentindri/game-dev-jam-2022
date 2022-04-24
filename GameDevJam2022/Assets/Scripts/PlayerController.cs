@@ -60,11 +60,11 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         wasGrounded = isGrounded;
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Bush")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Bush"|| collision.gameObject.tag == "Vehicle")
         {
             isGrounded = true;
 
-            if (collision.gameObject.tag != "Bush")
+            if (collision.gameObject.tag == "Platform"|| collision.gameObject.tag == "Obstacle")
             {
                 float playerVelocity = Mathf.Abs(rb2D.velocity.y);
                 Debug.Log("player velocity" + playerVelocity);
@@ -112,6 +112,8 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Respawn - playerPosition:" + gameObject.transform.position);
         Debug.Log("Respawn - new Position:" + respawnPoint);
+        rb2D.velocity = Vector2.zero;
+        rb2D.angularVelocity = 0f;
         gameObject.transform.position = respawnPoint;
         disabled = false;
         gameObject.SetActive(true);

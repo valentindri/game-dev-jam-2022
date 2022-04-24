@@ -1892,6 +1892,10 @@ PrefabInstance:
       propertyPath: orthographic size
       value: 12.7
       objectReference: {fileID: 0}
+    - target: {fileID: 333946935171128657, guid: 5e636ad28b3ff3b43bffb14962ea3494, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 333946935171128663, guid: 5e636ad28b3ff3b43bffb14962ea3494, type: 3}
       propertyPath: DeadEgg
       value: 
