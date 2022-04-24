@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float moveSpeed;
     [SerializeField] public float jumpForce;
     [SerializeField] public float fallThresholdVelocity;
-    [SerializeField] private Sprite DeadEgg;
+    [SerializeField] private GameObject DeadEgg;
 
     private Vector2 respawnPoint;
     private float moveHorizontal;
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour
 
             if (!wasGrounded && isGrounded && playerVelocity > fallThresholdVelocity)
             {
-                GetDamage(playerVelocity);
+                GetDamage(playerVelocity, gameObject.transform.position);
                 Debug.Log("Damage" + playerVelocity);
             }
         }
@@ -96,9 +98,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void GetDamage(float damage)
+    async void GetDamage(float damage, Vector2 position)
     {
         Debug.Log("Received damage!!" + damage);
+        Instantiate(DeadEgg,position, Quaternion.identity);
+        await Task.Delay(1000);
         Respawn();
     }
 
