@@ -9,6 +9,7 @@ TagManager:
   - Hole
   - Bouncy
   - Obstacle
+  - Vehicle
   layers:
   - Default
   - TransparentFX
