@@ -10,7 +10,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float moveSpeed;
     [SerializeField] public float jumpForce;
     [SerializeField] public float fallThresholdVelocity;
+    [SerializeField] private Sprite DeadEgg;
 
+    private Vector2 respawnPoint;
     private float moveHorizontal;
     private float moveVertical;
 
@@ -26,7 +28,9 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();//gameobject references the object the script is attached to (Player)
-        
+        respawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+
+
     }
 
     // Update is called once per frame
@@ -34,11 +38,6 @@ public class PlayerController : MonoBehaviour
     {
         moveHorizontal = Input.GetAxisRaw("Horizontal");//grab type of input 
         moveVertical = Input.GetAxisRaw("Vertical");//grab type of input 
-
-        if (!wasGrounded && isGrounded && rb2D.velocity.y < -fallThresholdVelocity)
-        {
-            Debug.Log("Damage");
-        }
     }
 
     void FixedUpdate()//updating together w the physics engine inside unity, so it's not depending on the frame rate
@@ -66,6 +65,24 @@ public class PlayerController : MonoBehaviour
             isGrounded = true;
         }
 
+
+        if (collision.tag == "Hole")
+        {
+            Debug.Log("Fall into hole...Respawning to "+ respawnPoint);
+            transform.position = respawnPoint;
+        }
+
+        if (collision.gameObject.tag != "Bush")
+        {
+            float playerVelocity = Mathf.Abs(rb2D.velocity.y);
+            Debug.Log("plyer velocity" + playerVelocity);
+
+            if (!wasGrounded && isGrounded && playerVelocity > fallThresholdVelocity)
+            {
+                GetDamage(playerVelocity);
+                Debug.Log("Damage" + playerVelocity);
+            }
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -79,5 +96,18 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void GetDamage(float damage)
+    {
+        Debug.Log("Received damage!!" + damage);
+        Respawn();
+    }
+
+    void Respawn()
+    {
+        Debug.Log("Respawn - playerPosition:" + gameObject.transform.position);
+        Debug.Log("Respawn - new Position:" + respawnPoint);
+        gameObject.transform.position = respawnPoint;
+
+    }
 
 }
