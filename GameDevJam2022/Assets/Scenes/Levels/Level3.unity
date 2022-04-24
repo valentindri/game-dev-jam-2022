@@ -470,7 +470,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7763158, y: 1}
+    m_SensorSize: {x: 1.7804878, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -601,7 +601,6 @@ GameObject:
   - component: {fileID: 288433977}
   - component: {fileID: 288433982}
   - component: {fileID: 288433979}
-  - component: {fileID: 288433984}
   - component: {fileID: 288433980}
   - component: {fileID: 288433981}
   - component: {fileID: 288433985}
@@ -731,19 +730,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &288433984
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 288433976}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f35919c787ee7e4cbe1a1afc33c20ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallThresholdVelocity: 1
 --- !u!70 &288433985
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
