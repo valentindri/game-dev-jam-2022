@@ -18,12 +18,8 @@ public class PlayerController : MonoBehaviour
     private float moveHorizontal;
     private float moveVertical;
 
-
-
-
-
+    private bool disabled;
     private bool isGrounded;
-
     private bool wasGrounded;
 
     // Start is called before the first frame update
@@ -31,6 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         rb2D = gameObject.GetComponent<Rigidbody2D>();//gameobject references the object the script is attached to (Player)
         respawnPoint = GameObject.FindGameObjectWithTag("Respawn").transform.position;
+        disabled = false;
 
 
     }
@@ -38,6 +35,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (disabled) return;
         moveHorizontal = Input.GetAxisRaw("Horizontal");//grab type of input 
         moveVertical = Input.GetAxisRaw("Vertical");//grab type of input 
     }
@@ -65,26 +63,28 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Bush")
         {
             isGrounded = true;
+
+            if (collision.gameObject.tag != "Bush")
+            {
+                float playerVelocity = Mathf.Abs(rb2D.velocity.y);
+                Debug.Log("player velocity" + playerVelocity);
+
+                if (!wasGrounded && isGrounded && playerVelocity > fallThresholdVelocity)
+                {
+                    GetDamage(playerVelocity, gameObject.transform.position);
+                    Debug.Log("Damage" + playerVelocity);
+                }
+            }
         }
 
 
-        if (collision.tag == "Hole")
+        else if (collision.gameObject.tag == "Hole")
         {
             Debug.Log("Fall into hole...Respawning to "+ respawnPoint);
             transform.position = respawnPoint;
         }
-
-        if (collision.gameObject.tag != "Bush")
-        {
-            float playerVelocity = Mathf.Abs(rb2D.velocity.y);
-            Debug.Log("plyer velocity" + playerVelocity);
-
-            if (!wasGrounded && isGrounded && playerVelocity > fallThresholdVelocity)
-            {
-                GetDamage(playerVelocity, gameObject.transform.position);
-                Debug.Log("Damage" + playerVelocity);
-            }
-        }
+        
+        
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -101,8 +101,10 @@ public class PlayerController : MonoBehaviour
     async void GetDamage(float damage, Vector2 position)
     {
         Debug.Log("Received damage!!" + damage);
+        disabled = true;
+        gameObject.SetActive(false);
         Instantiate(DeadEgg,position, Quaternion.identity);
-        await Task.Delay(1000);
+        await Task.Delay(1800);
         Respawn();
     }
 
@@ -111,6 +113,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Respawn - playerPosition:" + gameObject.transform.position);
         Debug.Log("Respawn - new Position:" + respawnPoint);
         gameObject.transform.position = respawnPoint;
+        disabled = false;
+        gameObject.SetActive(true);
 
     }
 
