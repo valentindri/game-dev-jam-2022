@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BouncyFungi : MonoBehaviour
 {
-    private float bounce = 90f;
+    private float bounce = 45f;
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
