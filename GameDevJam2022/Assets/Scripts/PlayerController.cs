@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour
 
         else if (collision.gameObject.tag == "Hole")
         {
-            Debug.Log("Fall into hole...Respawning to "+ respawnPoint);
             Respawn();
         }
         
@@ -107,8 +106,6 @@ public class PlayerController : MonoBehaviour
 
     void Respawn()
     {
-        Debug.Log("Respawn - playerPosition:" + gameObject.transform.position);
-        Debug.Log("Respawn - new Position:" + respawnPoint);
         rb2D.velocity = Vector2.zero;
         rb2D.angularVelocity = 0f;
         gameObject.transform.position = respawnPoint;
