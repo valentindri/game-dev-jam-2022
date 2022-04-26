@@ -60,7 +60,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333946934829646498}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.05, y: 1.8141493, z: -10.315018}
+  m_LocalPosition: {x: -14.540352, y: 2.7636814, z: -10.315018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -163,10 +163,10 @@ GameObject:
   m_Component:
   - component: {fileID: 333946935171128656}
   - component: {fileID: 333946935171128662}
-  - component: {fileID: 333946935171128663}
   - component: {fileID: 333946935171128661}
   - component: {fileID: 333946935171128658}
   - component: {fileID: 333946935171128659}
+  - component: {fileID: 4776415596101937267}
   m_Layer: 0
   m_Name: Egg
   m_TagString: Player
@@ -241,22 +241,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &333946935171128663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 333946935171128657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ee29706cd0c244d9f5540ce211cd21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 0.8
-  jumpForce: 28
-  fallThresholdVelocity: 15
-  DeadEgg: {fileID: 3662331754238732181, guid: d51c9dfa0bc01d340b80098aaf1cafe3, type: 3}
 --- !u!50 &333946935171128661
 Rigidbody2D:
   serializedVersion: 4
@@ -310,6 +294,20 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 2.39, y: 3.21}
   m_Direction: 0
+--- !u!114 &4776415596101937267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 333946935171128657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15ee29706cd0c244d9f5540ce211cd21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0.8
+  jumpForce: 28
 --- !u!1 &333946935386890248
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 333946935637469263}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.49035168, y: -0.94953215, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
