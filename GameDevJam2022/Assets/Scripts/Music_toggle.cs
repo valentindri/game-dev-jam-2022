@@ -7,16 +7,12 @@ public class Music_toggle : MonoBehaviour
 {
     private bool isMuted = false;
 
-    public void Mute()
-    {
-    }
-
     void Start()
     {
         isMuted = false;
     }
 
-    public void ClickMute()
+    public void Mute()
     {
         isMuted = !isMuted;
         AudioListener.pause = isMuted;

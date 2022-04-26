@@ -496,7 +496,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 475421950}
         m_TargetAssemblyTypeName: Music_toggle, Assembly-CSharp
-        m_MethodName: ClickMute
+        m_MethodName: Mute
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
