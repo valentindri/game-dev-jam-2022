@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
             rb2D.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
         }
 
-        
+       
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -83,12 +83,12 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Bush")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Vehicle")
         {
             isGrounded = false;
         }
-         
-        
+
+       // Debug.Log("Trigger exit");
 
     }
 
