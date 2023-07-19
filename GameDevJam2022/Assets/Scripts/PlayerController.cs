@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour
 
     private bool disabled;
     private bool isGrounded;
-    //private bool wasGrounded;
 
     // Start is called before the first frame update
     void Start()
@@ -33,74 +32,60 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if (disabled) return;
-        moveHorizontal = Input.GetAxisRaw("Horizontal");//grab type of input 
-        moveVertical = Input.GetAxisRaw("Vertical");//grab type of input 
+        moveHorizontal = Input.GetAxisRaw("Horizontal");
+        moveVertical = Input.GetAxisRaw("Vertical");
     }
 
     void FixedUpdate()//updating together w the physics engine inside unity, so it's not depending on the frame rate
     {
-        //Left and Right
-        if (moveHorizontal > 0f || moveHorizontal < 0f)
-        {
-            rb2D.AddForce(new Vector2(moveHorizontal * moveSpeed,0f), ForceMode2D.Impulse);
-        }
+        rb2D.AddForce(new Vector2(moveHorizontal * (isGrounded? moveSpeed : moveSpeed / 2) * Time.deltaTime, 0));
         
-        //Jumping
-        if(isGrounded && moveVertical > 0f)
-        {
-            rb2D.AddForce(new Vector2(0f, moveVertical * jumpForce), ForceMode2D.Impulse);
-        }
+        Jump();
+    }
 
-        
+    void Jump()
+    {
+        float verticalVelocity = rb2D.velocity.y;
+        if(isGrounded && verticalVelocity < 1)
+        {
+            rb2D.AddForce(new Vector2(0, moveVertical * jumpForce * Time.deltaTime), ForceMode2D.Impulse);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         //wasGrounded = isGrounded;
+        if(rb2D.velocity.y > 30){
+            GetDamage();
+        }
+
         if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Bush"|| collision.gameObject.tag == "Vehicle")
         {
             isGrounded = true;
-
-            //if (collision.gameObject.tag == "Platform"|| collision.gameObject.tag == "Obstacle")
-            //{
-            //    float playerVelocity = Mathf.Abs(rb2D.velocity.y);
-            //    Debug.Log("player velocity" + playerVelocity);
-
-                //if (!wasGrounded && isGrounded && playerVelocity > fallThresholdVelocity)
-                //{
-                //    GetDamage(playerVelocity, gameObject.transform.position);
-                //    Debug.Log("Damage" + playerVelocity);
-                //}
         }
-
         else if (collision.gameObject.tag == "Hole")
         {
             Respawn();
-        }
-        
-        
+        }  
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Bush")
+        if (collision.gameObject.tag == "Platform" || collision.gameObject.tag == "Vehicle" || collision.gameObject.tag == "Bush")
         {
             isGrounded = false;
         }
-         
-        
-
     }
 
-    //async void GetDamage(float damage, Vector2 position)
-    //{
-    //    Debug.Log("Received damage!!" + damage);
-    //    disabled = true;
-    //    gameObject.SetActive(false);
-    //    this.gameObject.GetComponent<SpriteRenderer>().sprite = DeadEgg;
-    //    await Task.Delay(1500);
-    //    Respawn();
-    //}
+    async void GetDamage()
+    {
+        Debug.Log("Received damage!!");
+        //disabled = true;
+        //gameObject.SetActive(false);
+        //this.gameObject.GetComponent<SpriteRenderer>().sprite = DeadEgg;
+        await Task.Delay(1500);
+        Respawn();
+    }
     //We're not proud of this. Don't judge us please
 
 

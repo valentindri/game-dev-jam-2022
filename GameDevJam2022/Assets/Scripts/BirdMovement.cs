@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class BirdMovement : MonoBehaviour
 {
-    
-    void Start()
-    {
-        
-    }
-
-    
     private Vector3 pos1 = new Vector3(-14, 5, 0);
     private Vector3 pos2 = new Vector3(18, 5, 0);
     public float speed = 1.0f;
